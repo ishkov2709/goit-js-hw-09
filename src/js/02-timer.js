@@ -8,6 +8,10 @@ import 'notiflix/dist/notiflix-3.2.6.min.css';
 const inputCalendar = document.querySelector('#datetime-picker');
 const btnStartEl = document.querySelector('[data-start]');
 const timeValue = document.querySelectorAll('.value');
+let intervatId = 0;
+
+// Base options
+
 btnStartEl.disabled = true;
 
 // Options flatpickr
@@ -27,7 +31,7 @@ const options = {
     btnStartEl.addEventListener('click', () => {
       btnStartEl.disabled = true;
       inputCalendar.disabled = true;
-      setInterval(() => {
+      intervatId = setInterval(() => {
         const { days, hours, minutes, seconds } = convertMs(
           currentDate - Date.now()
         );
@@ -46,6 +50,10 @@ const options = {
             el.textContent = seconds;
           }
         });
+        if (currentDate - Date.now() < 1000) {
+          inputCalendar.disabled = false;
+          clearInterval(intervatId);
+        }
       }, 1000);
     });
   },
