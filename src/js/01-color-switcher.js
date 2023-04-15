@@ -1,4 +1,6 @@
-const btnsEl = document.querySelectorAll('button');
+const btnStartEl = document.querySelector('[data-start]');
+const btnStopEl = document.querySelector('[data-stop]');
+
 let intervalId = 0;
 
 const getRandomHexColor = () => {
@@ -7,25 +9,17 @@ const getRandomHexColor = () => {
     .padStart(6, 0)}`;
 };
 
-const onBtnsClrDisblAttr = evt => {
-  btnsEl.forEach(el => {
-    el.disabled = false;
-    if (el === evt.target) {
-      el.disabled = true;
-    }
-  });
-};
-
 document.body.addEventListener('click', evt => {
+  evt.target.disabled = true;
   const dataValue = Object.keys(evt.target.dataset).join('');
   if (dataValue === 'start') {
-    onBtnsClrDisblAttr(evt);
+    btnStopEl.disabled = false;
     intervalId = setInterval(() => {
       document.body.style.backgroundColor = getRandomHexColor();
     }, 1000);
   }
   if (dataValue === 'stop') {
-    onBtnsClrDisblAttr(evt);
+    btnStartEl.disabled = false;
     clearInterval(intervalId);
   }
 });
