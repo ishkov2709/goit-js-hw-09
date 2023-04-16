@@ -39,14 +39,11 @@ const options = {
         [...timeValue].forEach(el => {
           if (Object.keys(el.dataset).includes('days')) {
             el.textContent = days;
-          }
-          if (Object.keys(el.dataset).includes('hours')) {
+          } else if (Object.keys(el.dataset).includes('hours')) {
             el.textContent = hours;
-          }
-          if (Object.keys(el.dataset).includes('minutes')) {
+          } else if (Object.keys(el.dataset).includes('minutes')) {
             el.textContent = minutes;
-          }
-          if (Object.keys(el.dataset).includes('seconds')) {
+          } else if (Object.keys(el.dataset).includes('seconds')) {
             el.textContent = seconds;
           }
         });
