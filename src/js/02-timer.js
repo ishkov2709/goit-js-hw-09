@@ -47,6 +47,7 @@ const options = {
             el.textContent = seconds;
           }
         });
+        // Next Use
         if (currentDate - Date.now() < 1000) {
           inputCalendar.disabled = false;
           clearInterval(intervatId);
