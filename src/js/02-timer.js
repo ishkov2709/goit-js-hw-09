@@ -32,26 +32,7 @@ const options = {
       btnStartEl.disabled = true;
       inputCalendar.disabled = true;
       intervatId = setInterval(() => {
-        const { days, hours, minutes, seconds } = convertMs(
-          currentDate - Date.now()
-        );
-        // Update Timer
-        [...timeValue].forEach(el => {
-          if (Object.keys(el.dataset).includes('days')) {
-            el.textContent = days;
-          } else if (Object.keys(el.dataset).includes('hours')) {
-            el.textContent = hours;
-          } else if (Object.keys(el.dataset).includes('minutes')) {
-            el.textContent = minutes;
-          } else if (Object.keys(el.dataset).includes('seconds')) {
-            el.textContent = seconds;
-          }
-        });
-        // Next Use
-        if (currentDate - Date.now() < 1000) {
-          inputCalendar.disabled = false;
-          clearInterval(intervatId);
-        }
+        return timerUpdater(currentDate, Date.now(), timeValue);
       }, 1000);
     });
   },
@@ -60,6 +41,10 @@ const options = {
 let calendar = flatpickr('#datetime-picker', options);
 
 // Functions
+
+function addLeadingZero(value) {
+  return value.toString(10).padStart(2, '0');
+}
 
 function convertMs(ms) {
   const second = 1000;
@@ -77,6 +62,21 @@ function convertMs(ms) {
   return { days, hours, minutes, seconds };
 }
 
-function addLeadingZero(value) {
-  return value.toString(10).padStart(2, '0');
+function timerUpdater(currentDate, dateNow, timeValue) {
+  const { days, hours, minutes, seconds } = convertMs(currentDate - dateNow);
+  [...timeValue].forEach(el => {
+    if (Object.keys(el.dataset).includes('days')) {
+      el.textContent = days;
+    } else if (Object.keys(el.dataset).includes('hours')) {
+      el.textContent = hours;
+    } else if (Object.keys(el.dataset).includes('minutes')) {
+      el.textContent = minutes;
+    } else if (Object.keys(el.dataset).includes('seconds')) {
+      el.textContent = seconds;
+    }
+  });
+  // Next Use
+  if (currentDate - dateNow < 1000) {
+    location.reload();
+  }
 }
