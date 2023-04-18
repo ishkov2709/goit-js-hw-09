@@ -3,6 +3,8 @@ const btnStopEl = document.querySelector('[data-stop]');
 
 let intervalId = 0;
 
+btnStopEl.disabled = true;
+
 const getRandomHexColor = () => {
   return `#${Math.floor(Math.random() * 16777215)
     .toString(16)
